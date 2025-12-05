@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 type CardItem = {
@@ -13,7 +12,7 @@ type CardItem = {
     href: string;
   }[];
 };
-export function HomeCards({ cards }: { cards: CardItem[] }) {
+export function HomeCard({ cards }: { cards: CardItem[] }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4">
       {cards.map((card) => (

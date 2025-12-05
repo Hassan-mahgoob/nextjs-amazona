@@ -2,9 +2,12 @@ import { HomeCarousel } from "@/components/shared/home/home-carousel";
 import data from "@/lib/data";
 import {
   getAllCategories,
+  getProductsByTag,
   getProductsForCard,
 } from "@/lib/actions/product.actions";
-import { HomeCards } from "@/components/shared/home/home-card";
+import { HomeCard } from "@/components/shared/home/home-card";
+import { Card, CardContent } from "@/components/ui/card";
+import ProductSlider from "@/components/shared/product/product-slider";
 export default async function Page() {
   const categories = (await getAllCategories()).slice(0, 4);
   const NewArrivals = await getProductsForCard({
@@ -57,11 +60,21 @@ export default async function Page() {
       },
     },
   ];
+  const todaysDeals = await getProductsByTag({ tag: "todays-deal" });
   return (
     <>
       <HomeCarousel items={data.carousels} />
       <div className="md:p-4 md:space-y-4 bg-border">
-        <HomeCards cards={cards} />
+        <HomeCard cards={cards} />
+        <Card className="w-full rounded-none">
+          <CardContent className="p-4 items-center gap-3">
+            {todaysDeals && todaysDeals.length > 0 ? (
+              <ProductSlider title={"Today's Deals"} products={todaysDeals} />
+            ) : (
+              <p>No deals available today.</p>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </>
   );
