@@ -29,7 +29,11 @@ export async function getProductsForCard({
   )
     .sort({ createdAt: "desc" })
     .limit(limit);
-  return JSON.parse(JSON.stringify(products)) as IProduct[];
+    return JSON.parse(JSON.stringify(products)) as {
+    name: string;
+    image: string;
+    href: string;
+  }[];
 }
 export async function getProductsByTag({
   tag,
